@@ -1,0 +1,21 @@
+ #contenedor {
+        margin:auto;
+        width:1200px;
+      	}
+	     #titulo {
+        color: #12BBFA;
+        padding:10px;
+      	}
+      	.destacado {
+        color: #FADE12;
+     	}
+        #subtitulo {
+        color: #1701A4;
+        }
+       	span.especial { 
+        color:purple;
+      	}
+        caption {
+            color: blue;
+
+        }

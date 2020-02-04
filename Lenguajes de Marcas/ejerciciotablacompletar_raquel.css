@@ -1,0 +1,71 @@
+
+
+td,th {
+	border: 1px solid green;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+#primerafila th::first-letter {
+	font-size: 2em; 
+
+}
+
+tr td:first-child{
+background-color:green; 
+}
+
+
+thead tr th:hover:last-child {
+
+font-size: 2em;
+
+}
+
+tbody tr td:hover:last-child {
+
+font-size: 2em;
+
+}
+
+a:link {
+text-decoration: none;
+color:blue;
+}
+
+a:visited{
+	color:red;
+}
+
+label:after {
+	content: "*";
+	color:red;
+}
+
+span:hover{
+	font-size: 2em;
+}
+
+.patio[data-descr]{
+	position: relative;
+	text-decoration: underline;
+	color: pink;
+	cursor: help;
+} 
+
+.patio[data-descr]:hover::after{
+content:attr(data-descr);
+position:absolute;
+left:275PX;
+top:20px;
+min-width:200px;
+border:1px blue solid;
+border-radius: 10px;
+background-color:blue;
+padding: 12px;
+color:black;
+font-size: 14px;
+
+}

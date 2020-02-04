@@ -1,0 +1,37 @@
+
+	     #contenedor {
+        margin:auto;
+        width:1200px;
+      	}
+	     #titulo {
+        color: #12BBFA;
+	      text-align:center;
+        padding:10px;
+      	}
+      	#vidrio {
+        font-size: 19px;
+        background-color:#58EA0E;
+        color: white;
+        float:right;
+        height:640px;
+        padding:10px;
+        width:600px;
+     	}
+        #papel {
+        font-size: 16px;
+        background-color:#22CDF0;
+        color: #0548AA;
+        float:center;
+        height:640px;
+        padding:10px;
+        width:600px;
+        }
+       	#envases { 
+        font-size: 18px;
+        background-color:#F7F40C;
+        clear:both;
+        color:black;
+        height: 500px;
+        padding:10px;
+        text-align:left;
+      	}
