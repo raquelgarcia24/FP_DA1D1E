@@ -1,0 +1,44 @@
+SQL> connect raquel/raquel;
+Connected.
+
+SQL> create table usuarios_7
+  2  (credito number(4) check (credito between 0 and 2000));
+
+Table created.
+
+SQL> insert into usuarios_7 values (1500);
+
+1 row created.
+
+SQL> select * from usuarios_7;
+
+   CREDITO
+----------
+      1500
+
+SQL> alter table usuarios_7
+  2  add (nombre varchar2 (25));
+
+Table altered.
+
+SQL> delete usuarios_7;
+
+1 row deleted.
+
+SQL> insert into usuarios_7
+  2  values ('1500','pepe');
+
+1 row created.
+
+SQL> insert into usuarios_7 (nombre) values ('maria');
+
+1 row created.
+
+SQL> alter table usuarios_7
+  2  modify nombre varchar(50);
+
+Table altered.
+
+SQL> alter table usuarios_7 drop constraint SYS_C007054;
+
+Table altered.

@@ -1,0 +1,37 @@
+create table EJEMPLO1 (
+DNI varchar(10) not null,
+nombre varchar(30),
+fecha date default sysdate);
+
+insert into ejemplo1 values ('05958846Y','RAQUEL', '01/01/2019');
+insert into ejemplo1 (dni, nombre) values ('45871124Z', 'CARLOS');
+
+create table EJEMPLO2(
+DNI varchar (10), 
+NOMBRE varchar(30) default 'no definido',
+USUARIO varchar (10) default uid);
+
+create table ejemplo3(
+DNI varchar2(10) primary key,
+NOMBRE varchar2 (30) not null check (nombre=upper(nombre)),
+EDAD number(2) check (edad between 5 and 20),
+CURSO number check (curso between 1 and 3)); 
+
+create table FABRICANTES (
+COD_FABRICANTE NUMBER(3) primary key,
+NOMBRE VARCHAR2(15) check (nombre=upper(nombre)),
+PAIS VARCHAR2(15) check (pais=upper(pais)));
+
+create table ARTICULOS(
+ARTICULO VARCHAR2(20),
+COD_FABRICANTE NUMBER(3) references fabricantes,
+PESO NUMBER(3) check (peso>0),
+CATEGORIA VARCHAR2(10) constraint categoria check (categoria='primera' or categoria='segunda' or categoria='tercera'),
+PRECIO_VENTA NUMBER(6,2) constraint precio_venta check (precio_venta>0),
+PRECIO_COSTO NUMBER(6,2) constraint precio_costo check (precio_costo>0),
+EXISTENCIAS NUMBER(5),
+primary key (articulo, cod_fabricante, peso, categoria));
+
+insert into fabricantes values(100,'PEPE', 'FRANCIA');
+INSERT INTO FABRICANTES VALUES (101, 'PEPA','FRANCIA');
+

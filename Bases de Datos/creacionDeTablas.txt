@@ -1,0 +1,57 @@
+create user raquel identified by raquel;
+
+grant dba to raquel;
+
+create table generos (
+genero varchar (10) primary key);
+
+create table directores (
+Nombre varchar2(15) primary key, 
+Lugar_de_nacimiento varchar2(10),
+Fecha_nacimiento date);
+
+create table peliculas(
+codigo number (5) primary key,
+Titulo varchar2 (15),
+Director varchar2(15) references directores,
+Año number (4),
+Caratula varchar2(5),
+Genero varchar (10) references generos);
+
+create table actores_peliculas (
+Pelicula number (5),
+Actor varchar2 (15),
+Foto varchar (255),
+Anyo number (4),
+constraint cod_pel_fk foreign key(pelicula) references peliculas,
+constraint nom_actor_fk foreign key(actor) references actores);
+
+
+create table AUTORES (
+Nombre varchar2(10) primary key,
+Nacionalidad varchar2(10));
+
+create table EDITORIAL (
+Nombre varchar2(10) primary key,
+Dirección varchar2(15));
+
+create table LIBROS (
+ISBN number(10) primary key,
+Titulo varchar2 (15),
+Autor varchar2(10) references autores,
+Editorial varchar2(10) references editorial,
+AñoEdicion number(4));
+
+
+create table SOCIOS (
+NúmeroSocio number (5) primary key,
+Nombre varchar2 (15),
+Dirección varchar (15),
+Tfno number(9),
+DNI varchar2 (9));
+
+create table PRESTAMOS (
+Codigo number (5) primary key,
+Fecha date,
+Socio number(5) references socios,
+Libro number (10)references libros);

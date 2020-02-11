@@ -1,0 +1,1451 @@
+tema 5.
+
+SQL> create user tema5 identified by tema5;
+
+User created.
+
+SQL> grant dba to tema5;
+
+Grant succeeded.
+
+SQL> grant all privileges to tema5;
+
+Grant succeeded.
+
+SQL> connect tema5/tema5;
+Connected.
+SQL>  select * from user_sys_privs;
+
+SQL> REM ******** TABLA DEPART: ***********
+SQL>
+SQL> DROP TABLE DEPART cascade constraints;
+DROP TABLE DEPART cascade constraints
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>
+SQL> CREATE TABLE DEPART (
+  2   DEPTNO  NUMBER(2) PRIMARY KEY,
+  3   DNOMBRE  VARCHAR2(25),
+  4   LOC      VARCHAR2(25) );
+
+Table created.
+
+SQL>
+SQL> INSERT INTO DEPART VALUES (10,'CONTABILIDAD','SEVILLA');
+
+1 row created.
+
+SQL> INSERT INTO DEPART VALUES (20,'INVESTIGACI�N','MADRID');
+
+1 row created.
+
+SQL> INSERT INTO DEPART VALUES (30,'VENTAS','BARCELONA');
+
+1 row created.
+
+SQL> INSERT INTO DEPART VALUES (40,'PRODUCCI�N','BILBAO');
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>
+SQL>
+SQL> REM ******** TABLA EMPLE: *************
+SQL>
+SQL> --ALTER SESSION SET NLS_DATE_FORMAT='DD/MM/YYYY';
+SQL>
+SQL> DROP TABLE EMPLE cascade constraints;
+DROP TABLE EMPLE cascade constraints
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>
+SQL> CREATE TABLE EMPLE (
+  2   EMPNO    NUMBER(4) PRIMARY KEY,
+  3   APELLIDO  VARCHAR2(10)  ,
+  4   OFICIO    VARCHAR2(10)  ,
+  5   DIR       NUMBER(4) ,
+  6   FECHAALT DATE      ,
+  7   SALARIO   NUMBER(10),
+  8   COMISION  NUMBER(10),
+  9   DEPTNO   NUMBER(2) REFERENCES DEPART);
+
+Table created.
+
+SQL>
+SQL> INSERT INTO EMPLE VALUES (7369,'S�NCHEZ','EMPLEADO',7902,'17/12/2010', 650,NULL,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7499,'ARROYO','VENDEDOR',7698,'20/02/2010', 1300,234,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7521,'SALA','VENDEDOR',7698,'22/02/2011', 980,392,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7566,'JIM�NEZ','DIRECTOR',7839,'02/04/2011',2400,NULL,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7654,'MART�N','VENDEDOR',7698,'29/09/2011', 980,1096,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7698,'NEGRO','DIRECTOR',7839,'01/05/2011',2240,NULL,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7782,'CEREZO','DIRECTOR',7839,'09/06/2011',1920,NULL,10);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7788,'GIL','ANALISTA',7566,'09/11/2011',2350,NULL,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7839,'REY','PRESIDENTE',NULL,'17/11/2011',3950,NULL,10);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7844,'TOVAR','VENDEDOR',7698,'08/09/2011',1190,0,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7876,'ALONSO','EMPLEADO',7788,'23/09/2011',862,NULL,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7900,'JIMENO','EMPLEADO',7698,'03/12/2011',750,NULL,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7902,'FERN�NDEZ','ANALISTA',7566,'03/12/2011',2350,NULL,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLE VALUES (7934,'MU�OZ','EMPLEADO',7782,'23/01/2012',1020,NULL,10);
+
+1 row created.
+
+SQL>
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> select oficio from emple;
+
+OFICIO
+----------
+EMPLEADO
+VENDEDOR
+VENDEDOR
+DIRECTOR
+VENDEDOR
+DIRECTOR
+DIRECTOR
+ANALISTA
+PRESIDENTE
+VENDEDOR
+EMPLEADO
+
+OFICIO
+----------
+EMPLEADO
+ANALISTA
+EMPLEADO
+
+14 rows selected.
+
+SQL> select distinct oficio from emple;
+
+OFICIO
+----------
+PRESIDENTE
+EMPLEADO
+VENDEDOR
+ANALISTA
+DIRECTOR
+
+SQL> select apellido, oficio, salario from emple;
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+S?NCHEZ    EMPLEADO          650
+ARROYO     VENDEDOR         1300
+SALA       VENDEDOR          980
+JIM?NEZ    DIRECTOR         2400
+MART?N     VENDEDOR          980
+NEGRO      DIRECTOR         2240
+CEREZO     DIRECTOR         1920
+GIL        ANALISTA         2350
+REY        PRESIDENTE       3950
+TOVAR      VENDEDOR         1190
+ALONSO     EMPLEADO          862
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+JIMENO     EMPLEADO          750
+FERN?NDEZ  ANALISTA         2350
+MU?OZ      EMPLEADO         1020
+
+14 rows selected.
+
+SQL> select dnombre, loc from depart;
+
+DNOMBRE                   LOC
+------------------------- -------------------------
+CONTABILIDAD              SEVILLA
+INVESTIGACI?N             MADRID
+VENTAS                    BARCELONA
+PRODUCCI?N                BILBAO
+
+SQL> select dnombre NOMBRED, loc Localidad from depart;
+
+NOMBRED                   LOCALIDAD
+------------------------- -------------------------
+CONTABILIDAD              SEVILLA
+INVESTIGACI?N             MADRID
+VENTAS                    BARCELONA
+PRODUCCI?N                BILBAO
+
+select dnombre "Nombre dep", loc "localidad" from depart;
+
+SQL> select apellido, salario from emple;
+
+APELLIDO      SALARIO
+---------- ----------
+S?NCHEZ           650
+ARROYO           1300
+SALA              980
+JIM?NEZ          2400
+MART?N            980
+NEGRO            2240
+CEREZO           1920
+GIL              2350
+REY              3950
+TOVAR            1190
+ALONSO            862
+
+APELLIDO      SALARIO
+---------- ----------
+JIMENO            750
+FERN?NDEZ        2350
+MU?OZ            1020
+
+14 rows selected.
+
+SQL> select apellido Nombre, salario "Salario mensual",(salario*14)"Salario mensual"from emple;
+
+NOMBRE     Salario mensual Salario mensual
+---------- --------------- ---------------
+S?NCHEZ                650            9100
+ARROYO                1300           18200
+SALA                   980           13720
+JIM?NEZ               2400           33600
+MART?N                 980           13720
+NEGRO                 2240           31360
+CEREZO                1920           26880
+GIL                   2350           32900
+REY                   3950           55300
+TOVAR                 1190           16660
+ALONSO                 862           12068
+
+NOMBRE     Salario mensual Salario mensual
+---------- --------------- ---------------
+JIMENO                 750           10500
+FERN?NDEZ             2350           32900
+MU?OZ                 1020           14280
+
+14 rows selected.
+
+SQL> select * from depart;
+
+    DEPTNO DNOMBRE                   LOC
+---------- ------------------------- -------------------------
+        10 CONTABILIDAD              SEVILLA
+        20 INVESTIGACI?N             MADRID
+        30 VENTAS                    BARCELONA
+        40 PRODUCCI?N                BILBAO
+
+SQL> select deptno "Codigo de departamento", dnombre "Nombre de departamento", loc "Localidad" from depart;
+
+Codigo de departamento Nombre de departamento    Localidad
+---------------------- ------------------------- -------------------------
+                    10 CONTABILIDAD              SEVILLA
+                    20 INVESTIGACI?N             MADRID
+                    30 VENTAS                    BARCELONA
+                    40 PRODUCCI?N                BILBAO
+
+SQL> select apellido, salario, fechaalt from emple;
+
+APELLIDO      SALARIO FECHAALT
+---------- ---------- --------
+S?NCHEZ           650 17/12/10
+ARROYO           1300 20/02/10
+SALA              980 22/02/11
+JIM?NEZ          2400 02/04/11
+MART?N            980 29/09/11
+NEGRO            2240 01/05/11
+CEREZO           1920 09/06/11
+GIL              2350 09/11/11
+REY              3950 17/11/11
+TOVAR            1190 08/09/11
+ALONSO            862 23/09/11
+
+APELLIDO      SALARIO FECHAALT
+---------- ---------- --------
+JIMENO            750 03/12/11
+FERN?NDEZ        2350 03/12/11
+MU?OZ            1020 23/01/12
+
+14 rows selected.
+
+SQL> select apellido, salario from emple where UPPER( oficio)='ANALISTA';
+
+APELLIDO      SALARIO
+---------- ----------
+GIL              2350
+FERN?NDEZ        2350
+
+SQL> select apellido, oficio from emple where deptno=10;
+
+APELLIDO   OFICIO
+---------- ----------
+CEREZO     DIRECTOR
+REY        PRESIDENTE
+MU?OZ      EMPLEADO
+
+SQL> select apellido, fechaalt, salario from emple where dir=7698;
+
+APELLIDO   FECHAALT    SALARIO
+---------- -------- ----------
+ARROYO     20/02/10       1300
+SALA       22/02/11        980
+MART?N     29/09/11        980
+TOVAR      08/09/11       1190
+JIMENO     03/12/11        750
+
+SQL> select apellido, oficio from emple where salario>1000;
+
+APELLIDO   OFICIO
+---------- ----------
+ARROYO     VENDEDOR
+JIM?NEZ    DIRECTOR
+NEGRO      DIRECTOR
+CEREZO     DIRECTOR
+GIL        ANALISTA
+REY        PRESIDENTE
+TOVAR      VENDEDOR
+FERN?NDEZ  ANALISTA
+MU?OZ      EMPLEADO
+
+9 rows selected.
+
+SQL> select apellido, salario, comision from emple where salario+comision>1500;
+
+APELLIDO      SALARIO   COMISION
+---------- ---------- ----------
+ARROYO           1300        234
+MART?N            980       1096
+
+no salen todos porque salario+null=null. Por lo tanto=
+
+SQL> select apellido, salario, comision from emple where salario+comision>1500 or salario>1500;
+
+APELLIDO      SALARIO   COMISION
+---------- ---------- ----------
+ARROYO           1300        234
+JIM?NEZ          2400
+MART?N            980       1096
+NEGRO            2240
+CEREZO           1920
+GIL              2350
+REY              3950
+FERN?NDEZ        2350
+
+8 rows selected.
+
+
+SQL> select apellido, salario, fechaalt from emple where salario>1000 and deptno=20;
+
+APELLIDO      SALARIO FECHAALT
+---------- ---------- --------
+JIM?NEZ          2400 02/04/11
+GIL              2350 09/11/11
+FERN?NDEZ        2350 03/12/11
+
+SQL> select apellido, fechaalt from emple where fechaalt>'01/01/2011';
+
+APELLIDO   FECHAALT
+---------- --------
+SALA       22/02/11
+JIM?NEZ    02/04/11
+MART?N     29/09/11
+NEGRO      01/05/11
+CEREZO     09/06/11
+GIL        09/11/11
+REY        17/11/11
+TOVAR      08/09/11
+ALONSO     23/09/11
+JIMENO     03/12/11
+FERN?NDEZ  03/12/11
+
+APELLIDO   FECHAALT
+---------- --------
+MU?OZ      23/01/12
+
+12 rows selected.
+
+ORDER BY
+
+Por defecto es ASC
+
+SQL> select apellido, salario from emple order by salario;
+
+APELLIDO      SALARIO
+---------- ----------
+S?NCHEZ           650
+JIMENO            750
+ALONSO            862
+SALA              980
+MART?N            980
+MU?OZ            1020
+TOVAR            1190
+ARROYO           1300
+CEREZO           1920
+NEGRO            2240
+GIL              2350
+
+APELLIDO      SALARIO
+---------- ----------
+FERN?NDEZ        2350
+JIM?NEZ          2400
+REY              3950
+
+14 rows selected.
+
+SQL> select apellido, salario from emple order by salario desc;
+
+APELLIDO      SALARIO
+---------- ----------
+REY              3950
+JIM?NEZ          2400
+FERN?NDEZ        2350
+GIL              2350
+NEGRO            2240
+CEREZO           1920
+ARROYO           1300
+TOVAR            1190
+MU?OZ            1020
+SALA              980
+MART?N            980
+
+APELLIDO      SALARIO
+---------- ----------
+ALONSO            862
+JIMENO            750
+S?NCHEZ           650
+
+14 rows selected.
+SQL> select apellido, salario from emple order by apellido asc, salario desc;
+
+APELLIDO      SALARIO
+---------- ----------
+ALONSO            862
+ARROYO           1300
+CEREZO           1920
+FERN?NDEZ        2350
+GIL              2350
+JIMENO            750
+JIM?NEZ          2400
+MART?N            980
+MU?OZ            1020
+NEGRO            2240
+REY              3950
+
+APELLIDO      SALARIO
+---------- ----------
+SALA              980
+S?NCHEZ           650
+TOVAR            1190
+
+14 rows selected. <!-- si hubiese dos repes el salario seria desc
+
+SQL> select *from emple order by apellido;
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7876 ALONSO     EMPLEADO         7788 23/09/11        862
+        20
+
+      7499 ARROYO     VENDEDOR         7698 20/02/10       1300        234
+        30
+
+      7782 CEREZO     DIRECTOR         7839 09/06/11       1920
+        10
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7902 FERN?NDEZ  ANALISTA         7566 03/12/11       2350
+        20
+
+      7788 GIL        ANALISTA         7566 09/11/11       2350
+        20
+
+      7900 JIMENO     EMPLEADO         7698 03/12/11        750
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7566 JIM?NEZ    DIRECTOR         7839 02/04/11       2400
+        20
+
+      7654 MART?N     VENDEDOR         7698 29/09/11        980       1096
+        30
+
+      7934 MU?OZ      EMPLEADO         7782 23/01/12       1020
+        10
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7698 NEGRO      DIRECTOR         7839 01/05/11       2240
+        30
+
+      7839 REY        PRESIDENTE            17/11/11       3950
+        10
+
+      7521 SALA       VENDEDOR         7698 22/02/11        980        392
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7369 S?NCHEZ    EMPLEADO         7902 17/12/10        650
+        20
+
+      7844 TOVAR      VENDEDOR         7698 08/09/11       1190          0
+        30
+
+
+14 rows selected.
+
+SQL> select apellido, oficio from emple order by salario;
+
+APELLIDO   OFICIO
+---------- ----------
+S?NCHEZ    EMPLEADO
+JIMENO     EMPLEADO
+ALONSO     EMPLEADO
+SALA       VENDEDOR
+MART?N     VENDEDOR
+MU?OZ      EMPLEADO
+TOVAR      VENDEDOR
+ARROYO     VENDEDOR
+CEREZO     DIRECTOR
+NEGRO      DIRECTOR
+GIL        ANALISTA
+
+APELLIDO   OFICIO
+---------- ----------
+FERN?NDEZ  ANALISTA
+JIM?NEZ    DIRECTOR
+REY        PRESIDENTE
+
+14 rows selected.
+
+SQL> select apellido, oficio, salario from emple order by apellido asc, salario desc;
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+ALONSO     EMPLEADO          862
+ARROYO     VENDEDOR         1300
+CEREZO     DIRECTOR         1920
+FERN?NDEZ  ANALISTA         2350
+GIL        ANALISTA         2350
+JIMENO     EMPLEADO          750
+JIM?NEZ    DIRECTOR         2400
+MART?N     VENDEDOR          980
+MU?OZ      EMPLEADO         1020
+NEGRO      DIRECTOR         2240
+REY        PRESIDENTE       3950
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+SALA       VENDEDOR          980
+S?NCHEZ    EMPLEADO          650
+TOVAR      VENDEDOR         1190
+
+14 rows selected.
+
+SQL> select * from emple where upper(oficio)='VENDEDOR';
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7499 ARROYO     VENDEDOR         7698 20/02/10       1300        234
+        30
+
+      7521 SALA       VENDEDOR         7698 22/02/11        980        392
+        30
+
+      7654 MART?N     VENDEDOR         7698 29/09/11        980       1096
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7844 TOVAR      VENDEDOR         7698 08/09/11       1190          0
+        30
+
+SQL> select apellido, oficio, salario from emple where upper(apellido)='SALA';
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+SALA       VENDEDOR          980
+
+SQL> select * from emple where comision>0;
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7499 ARROYO     VENDEDOR         7698 20/02/10       1300        234
+        30
+
+      7521 SALA       VENDEDOR         7698 22/02/11        980        392
+        30
+
+      7654 MART?N     VENDEDOR         7698 29/09/11        980       1096
+        30
+
+SQL> select apellido, oficio from emple where comision is null;
+
+APELLIDO   OFICIO
+---------- ----------
+S?NCHEZ    EMPLEADO
+JIM?NEZ    DIRECTOR
+NEGRO      DIRECTOR
+CEREZO     DIRECTOR
+GIL        ANALISTA
+REY        PRESIDENTE
+ALONSO     EMPLEADO
+JIMENO     EMPLEADO
+FERN?NDEZ  ANALISTA
+MU?OZ      EMPLEADO
+
+10 rows selected.
+
+SQL> select apellido, oficio from emple where comision is not  null;
+
+APELLIDO   OFICIO
+---------- ----------
+ARROYO     VENDEDOR
+SALA       VENDEDOR
+MART?N     VENDEDOR
+TOVAR      VENDEDOR
+
+SQL> select apellido, salario from emple where lower( oficio) in ('analista', 'vendedor','empleado');
+
+APELLIDO      SALARIO
+---------- ----------
+S?NCHEZ           650
+ARROYO           1300
+SALA              980
+MART?N            980
+GIL              2350
+TOVAR            1190
+ALONSO            862
+JIMENO            750
+FERN?NDEZ        2350
+MU?OZ            1020
+
+10 rows selected.
+
+SQL> select apellido, salario from emple where lower( oficio) not in ('analista', 'vendedor','empleado');
+
+APELLIDO      SALARIO
+---------- ----------
+JIM?NEZ          2400
+NEGRO            2240
+CEREZO           1920
+REY              3950
+
+SQL> select apellido, salario from emple where lower( oficio) != 'analista';
+
+APELLIDO      SALARIO
+---------- ----------
+S?NCHEZ           650
+ARROYO           1300
+SALA              980
+JIM?NEZ          2400
+MART?N            980
+NEGRO            2240
+CEREZO           1920
+REY              3950
+TOVAR            1190
+ALONSO            862
+JIMENO            750
+
+APELLIDO      SALARIO
+---------- ----------
+MU?OZ            1020
+
+12 rows selected.
+
+
+SQL> select apellido, oficio, salario from emple where salario between 1000 and 2000;
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+ARROYO     VENDEDOR         1300
+CEREZO     DIRECTOR         1920
+TOVAR      VENDEDOR         1190
+MU?OZ      EMPLEADO         1020
+
+SQL> select apellido, oficio, salario from emple where salario not  between 1000 and 2000;
+
+APELLIDO   OFICIO        SALARIO
+---------- ---------- ----------
+S?NCHEZ    EMPLEADO          650
+SALA       VENDEDOR          980
+JIM?NEZ    DIRECTOR         2400
+MART?N     VENDEDOR          980
+NEGRO      DIRECTOR         2240
+GIL        ANALISTA         2350
+REY        PRESIDENTE       3950
+ALONSO     EMPLEADO          862
+JIMENO     EMPLEADO          750
+FERN?NDEZ  ANALISTA         2350
+
+10 rows selected.
+
+SQL> select apellido, oficio from emple  where lower( apellido) like 'a%';
+
+APELLIDO   OFICIO
+---------- ----------
+ARROYO     VENDEDOR
+ALONSO     EMPLEADO
+
+SQL> select apellido, oficio from emple  where lower( apellido) like '%z';
+
+APELLIDO   OFICIO
+---------- ----------
+S?NCHEZ    EMPLEADO
+JIM?NEZ    DIRECTOR
+FERN?NDEZ  ANALISTA
+MU?OZ      EMPLEADO
+
+SQL> select apellido, salario from emple where lower(apellido) like'%a%';
+
+APELLIDO      SALARIO
+---------- ----------
+ARROYO           1300
+SALA              980
+MART?N            980
+TOVAR            1190
+ALONSO            862
+
+SQL> select apellido, salario from emple where lower(apellido) like's%l%';
+
+APELLIDO      SALARIO
+---------- ----------
+SALA              980
+SQL> select apellido, salario from emple where lower(apellido) like'___';
+
+APELLIDO      SALARIO
+---------- ----------
+GIL              2350
+REY              3950
+
+SQL> select apellido, dir from emple where lower(apellido) like'___';
+
+APELLIDO          DIR
+---------- ----------
+GIL              7566
+REY
+
+
+SQL> select apellido, dir from emple where lower(apellido) like'_a%';
+
+APELLIDO          DIR
+---------- ----------
+SALA             7698
+MART?N           7698
+
+SQL> select apellido, salario "Salario actual", salario*1.05 "Incrementado" from emple;
+
+APELLIDO   Salario actual Incrementado
+---------- -------------- ------------
+S?NCHEZ               650        682,5
+ARROYO               1300         1365
+SALA                  980         1029
+JIM?NEZ              2400         2520
+MART?N                980         1029
+NEGRO                2240         2352
+CEREZO               1920         2016
+GIL                  2350       2467,5
+REY                  3950       4147,5
+TOVAR                1190       1249,5
+ALONSO                862        905,1
+
+APELLIDO   Salario actual Incrementado
+---------- -------------- ------------
+JIMENO                750        787,5
+FERN?NDEZ            2350       2467,5
+MU?OZ                1020         1071
+
+14 rows selected.
+SQL> select apellido, salario "Salario actual", salario*1.05 "Incrementado" from emple where deptno=10;
+
+APELLIDO   Salario actual Incrementado
+---------- -------------- ------------
+CEREZO               1920         2016
+REY                  3950       4147,5
+MU?OZ                1020         1071
+
+
+cuando es null al sumar un valor por null es null entonces ponemos NVL que significa no value y sustituyes el null por la cifra que le digas/nvl (nombreCampo,sustituto)/
+
+SQL> select apellido, salario "Salario actual", comision, salario+nvl(comision,0) from emple;
+
+APELLIDO   Salario actual   COMISION SALARIO+NVL(COMISION,0)
+---------- -------------- ---------- -----------------------
+S?NCHEZ               650                                650
+ARROYO               1300        234                    1534
+SALA                  980        392                    1372
+JIM?NEZ              2400                               2400
+MART?N                980       1096                    2076
+NEGRO                2240                               2240
+CEREZO               1920                               1920
+GIL                  2350                               2350
+REY                  3950                               3950
+TOVAR                1190          0                    1190
+ALONSO                862                                862
+
+APELLIDO   Salario actual   COMISION SALARIO+NVL(COMISION,0)
+---------- -------------- ---------- -----------------------
+JIMENO                750                                750
+FERN?NDEZ            2350                               2350
+MU?OZ                1020                               1020
+
+14 rows selected.
+
+SQL> select apellido, salario "Salario actual", comision, salario+nvl(comision,0) from emple where salario+nvl(comision,0)>1500;
+
+APELLIDO   Salario actual   COMISION SALARIO+NVL(COMISION,0)
+---------- -------------- ---------- -----------------------
+ARROYO               1300        234                    1534
+JIM?NEZ              2400                               2400
+MART?N                980       1096                    2076
+NEGRO                2240                               2240
+CEREZO               1920                               1920
+GIL                  2350                               2350
+REY                  3950                               3950
+FERN?NDEZ            2350                               2350
+
+8 rows selected.
+
+SQL> select apellido ||' y '||oficio "apellido y oficio" from emple;
+
+apellido y oficio
+-----------------------
+S?NCHEZ y EMPLEADO
+ARROYO y VENDEDOR
+SALA y VENDEDOR
+JIM?NEZ y DIRECTOR
+MART?N y VENDEDOR
+NEGRO y DIRECTOR
+CEREZO y DIRECTOR
+GIL y ANALISTA
+REY y PRESIDENTE
+TOVAR y VENDEDOR
+ALONSO y EMPLEADO
+
+apellido y oficio
+-----------------------
+JIMENO y EMPLEADO
+FERN?NDEZ y ANALISTA
+MU?OZ y EMPLEADO
+
+14 rows selected.
+
+SQL> select apellido ||' gana '|| salario||' y le gustaria ganar '|| salario*2 from emple;
+
+APELLIDO||'GANA'||SALARIO||'YLEGUSTARIAGANAR'||SALARIO*2
+--------------------------------------------------------------------------------
+S?NCHEZ gana 650 y le gustaria ganar 1300
+ARROYO gana 1300 y le gustaria ganar 2600
+SALA gana 980 y le gustaria ganar 1960
+JIM?NEZ gana 2400 y le gustaria ganar 4800
+MART?N gana 980 y le gustaria ganar 1960
+NEGRO gana 2240 y le gustaria ganar 4480
+CEREZO gana 1920 y le gustaria ganar 3840
+GIL gana 2350 y le gustaria ganar 4700
+REY gana 3950 y le gustaria ganar 7900
+TOVAR gana 1190 y le gustaria ganar 2380
+ALONSO gana 862 y le gustaria ganar 1724
+
+APELLIDO||'GANA'||SALARIO||'YLEGUSTARIAGANAR'||SALARIO*2
+--------------------------------------------------------------------------------
+JIMENO gana 750 y le gustaria ganar 1500
+FERN?NDEZ gana 2350 y le gustaria ganar 4700
+MU?OZ gana 1020 y le gustaria ganar 2040
+
+14 rows selected.
+
+SQL> select apellido, salario, deptno from emple where salario >=2000 and ( deptno= 10 or deptno= 20);
+
+APELLIDO      SALARIO     DEPTNO
+---------- ---------- ----------
+JIM?NEZ          2400         20
+GIL              2350         20
+REY              3950         10
+FERN?NDEZ        2350         20
+
+
+SQL> select apellido, salario, deptno from emple where salario >2000 and  deptno in(10,20);
+
+APELLIDO      SALARIO     DEPTNO
+---------- ---------- ----------
+JIM?NEZ          2400         20
+GIL              2350         20
+REY              3950         10
+FERN?NDEZ        2350         20
+
+
+SQL> select sum (Salario) from emple;
+
+SUM(SALARIO)
+------------
+       22942
+
+SQL> select sum (Salario) from emple where deptno=10;
+
+SUM(SALARIO)
+------------
+        6890
+
+SQL> select sum (Salario) from emple where deptno=10 and lower(apellido)like '%e%';
+
+SUM(SALARIO)
+------------
+        5870
+
+SQL> select sum(salario)"suma de salarios", sum(nvl(comision,0))"suma de comisiones", sum(salario+nvl(comision,0))"suma sal+com"from emple;
+
+suma de salarios suma de comisiones suma sal+com
+---------------- ------------------ ------------
+           22942               1722        24664
+
+
+SQL> select count(apellido)"total empleados", count(distinct oficio)"total oficios", count (distinct deptno) "total departamentos" from emple;
+
+total empleados total oficios total departamentos
+--------------- ------------- -------------------
+             14             5                   3
+
+SQL> select count(apellido)"total empleados", count(distinct oficio)"total oficios", count (distinct deptno) "total departamentos" , count (comision)from emple;
+
+total empleados total oficios total departamentos COUNT(COMISION)
+--------------- ------------- ------------------- ---------------
+             14             5                   3               4
+
+SQL> select initcap(apellido) from emple;
+
+INITCAP(AP
+----------
+S?Nchez
+Arroyo
+Sala
+Jim?Nez
+Mart?N
+Negro
+Cerezo
+Gil
+Rey
+Tovar
+Alonso
+
+INITCAP(AP
+----------
+Jimeno
+Fern?Ndez
+Mu?Oz
+
+14 rows selected.
+
+SQL> select  round(avg(salario)) from emple;
+
+ROUND(AVG(SALARIO))
+-------------------
+               1639
+
+SQL> select upper ('En MAyusculAS') from dual;
+
+UPPER('ENMAYU
+-------------
+EN MAYUSCULAS
+
+SQL> select lpad('M',5,'*') from emple;
+
+LPAD(
+-----
+****M
+****M
+****M
+****M
+****M
+****M
+****M
+****M
+****M
+****M
+****M
+
+LPAD(
+-----
+****M
+****M
+****M
+
+14 rows selected.
+
+SQL> select rpad('m',5,'*') from emple;
+
+RPAD(
+-----
+m****
+m****
+m****
+m****
+m****
+m****
+m****
+m****
+m****
+m****
+m****
+
+RPAD(
+-----
+m****
+m****
+m****
+
+14 rows selected.
+
+SQL> select replace ('arroyo','a','i') from emple;
+
+REPLAC
+------
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+irroyo
+
+REPLAC
+------
+irroyo
+irroyo
+irroyo
+
+14 rows selected.
+
+SQL> select apellido, salario, length(apellido) from emple order by length (apellido), salario desc, apellido asc;
+
+APELLIDO      SALARIO LENGTH(APELLIDO)
+---------- ---------- ----------------
+REY              3950                3
+GIL              2350                3
+SALA              980                4
+NEGRO            2240                5
+TOVAR            1190                5
+MU?OZ            1020                5
+CEREZO           1920                6
+ARROYO           1300                6
+MART?N            980                6
+ALONSO            862                6
+JIMENO            750                6
+
+APELLIDO      SALARIO LENGTH(APELLIDO)
+---------- ---------- ----------------
+JIM?NEZ          2400                7
+S?NCHEZ           650                7
+FERN?NDEZ        2350                9
+
+14 rows selected.
+
+SQL>
+
+SQL> select instr('usuarios','u') from dual;
+
+INSTR('USUARIOS','U')
+---------------------
+                    1
+
+SQL> select instr('usuarios','u',2) from dual;
+
+INSTR('USUARIOS','U',2)
+-----------------------
+                      3
+
+SQL> select chr('75'),chr('365') from dual;
+
+C CH
+- --
+K m
+
+
+
+SQL> select concat (' El Apellido es: ', apellido) from emple;
+
+CONCAT('ELAPELLIDOES:',APEL
+---------------------------
+ El Apellido es: S?NCHEZ
+ El Apellido es: ARROYO
+ El Apellido es: SALA
+ El Apellido es: JIM?NEZ
+ El Apellido es: MART?N
+ El Apellido es: NEGRO
+ El Apellido es: CEREZO
+ El Apellido es: GIL
+ El Apellido es: REY
+ El Apellido es: TOVAR
+ El Apellido es: ALONSO
+
+CONCAT('ELAPELLIDOES:',APEL
+---------------------------
+ El Apellido es: JIMENO
+ El Apellido es: FERN?NDEZ
+ El Apellido es: MU?OZ
+
+14 rows selected.
+
+SQL> select upper('OraclE y SqL'), lower ('OraclE y SqL'), initcap('OraclE y SqL') from dual;
+
+UPPER('ORACL LOWER('ORACL INITCAP('ORA
+------------ ------------ ------------
+ORACLE Y SQL oracle y sql Oracle Y Sqllp
+
+SQL> select lpad(apellido,15,'.'), rpad(apellido,15,'*')from emple;
+
+LPAD(APELLIDO,15,'.')
+------------------------------------------------------------
+RPAD(APELLIDO,15,'*')
+------------------------------------------------------------
+........S?NCHEZ
+S?NCHEZ********
+
+.........ARROYO
+ARROYO*********
+
+...........SALA
+SALA***********
+
+SQL> select replace ('BLANCO Y NEGRO','O','AS') from dual;
+
+REPLACE('BLANCOY
+----------------
+BLANCAS Y NEGRAS
+
+
+SQL> select substr('ABCDEF','3','2'),SUBSTR ('ABCDEF','-3','2'), SUBSTR('ABCDEF','4') FROM EMPLE;
+
+SU SU SUB
+-- -- ---
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+CD DE DEF
+
+SU SU SUB
+-- -- ---
+CD DE DEF
+CD DE DEF
+CD DE DEF
+
+14 rows selected.
+
+
+SQL> select concat (apellido, concat(' ',substr(Apellido, '1','1'))) from emple;
+
+CONCAT(APELLIDO
+---------------
+S?NCHEZ S
+ARROYO A
+SALA S
+JIM?NEZ J
+MART?N M
+NEGRO N
+CEREZO C
+GIL G
+REY R
+TOVAR T
+ALONSO A
+
+CONCAT(APELLIDO
+---------------
+JIMENO J
+FERN?NDEZ F
+MU?OZ M
+
+14 rows selected.
+
+
+SQL> select translate ('LOS PILARES DE LA TIERRA','AEIOU','aeiou') from dual;
+
+TRANSLATE('LOSPILARESDEL
+------------------------
+LoS PiLaReS De La TieRRa
+
+SQL> select translate ('LOS PILARES DE LA TIERRA','AEIOU','i') from dual;
+
+TRANSLATE('LOSPILA
+------------------
+LS PLiRS D Li TRRi  como se supone que se tiene que meter por orden respectivo, solo sustituye el de la primera posicion.
+
+SQL> select ascii('A') from dual;
+
+ASCII('A')
+----------
+        65
+
+SQL> select instr('VUELTA CICLISTA A TALAVERA.','TA',1), instr('VUELTA CICLISTA A TALAVERA.','TA',-1) FROM DUAL;
+
+INSTR('VUELTACICLISTAATALAVERA.','TA',1)
+----------------------------------------
+INSTR('VUELTACICLISTAATALAVERA.','TA',-1)
+-----------------------------------------
+                                       5
+                                       19
+
+SQL> select concat (apellido, concat(' ', instr(apellido,'A')))from emple;
+
+CONCAT(APELLIDO,CONCAT('',INSTR(APELLIDO,'A')))
+---------------------------------------------------
+S?NCHEZ 0
+ARROYO 1
+SALA 2
+JIM?NEZ 0
+MART?N 2
+NEGRO 0
+CEREZO 0
+GIL 0
+REY 0
+TOVAR 4
+ALONSO 1
+
+CONCAT(APELLIDO,CONCAT('',INSTR(APELLIDO,'A')))
+---------------------------------------------------
+JIMENO 0
+FERN?NDEZ 0
+MU?OZ 0
+
+14 rows selected.
+
+
+SQL> SELECT CONCAT (APELLIDO, CONCAT(' ', LENGTH(APELLIDO))) FROM EMPLE;
+
+CONCAT(APELLIDO,CONCAT('',LENGTH(APELLIDO)))
+---------------------------------------------------
+S?NCHEZ 7
+ARROYO 6
+SALA 4
+JIM?NEZ 7
+MART?N 6
+NEGRO 5
+CEREZO 6
+GIL 3
+REY 3
+TOVAR 5
+ALONSO 6
+
+CONCAT(APELLIDO,CONCAT('',LENGTH(APELLIDO)))
+---------------------------------------------------
+JIMENO 6
+FERN?NDEZ 9
+MU?OZ 5
+
+14 rows selected.
+
+
+
+12/12/2019
+select count(distinct extract (year from fechaalt)) from emple;
+
+COUNT(DISTINCTEXTRACT(YEARFROMFECHAALT))
+----------------------------------------
+                                       3
+
+SQL> select apellido, to_char(fechaalt,'Month dd yyyy') from emple where deptno=10;
+
+APELLIDO   TO_CHAR(FECHAALT,'MONTHDDYYYY')
+---------- ------------------------------------------------
+CEREZO     Junio      09 2011
+REY        Noviembre  17 2011
+MU?OZ      Enero      23 2012
+
+
+SQL> SELECT apellido, oficio, decode(upper(oficio), 'PRESIDENTE', 1, 'EMPLEADO' ,2, 5) FROM emple;
+
+APELLIDO   OFICIO     DECODE(UPPER(OFICIO),'PRESIDENTE',1,'EMPLEADO',2,5)
+---------- ---------- ---------------------------------------------------
+S?NCHEZ    EMPLEADO                                                     2
+ARROYO     VENDEDOR                                                     5
+SALA       VENDEDOR                                                     5
+JIM?NEZ    DIRECTOR                                                     5
+MART?N     VENDEDOR                                                     5
+NEGRO      DIRECTOR                                                     5
+CEREZO     DIRECTOR                                                     5
+GIL        ANALISTA                                                     5
+REY        PRESIDENTE                                                   1
+TOVAR      VENDEDOR                                                     5
+ALONSO     EMPLEADO                                                     2
+
+APELLIDO   OFICIO     DECODE(UPPER(OFICIO),'PRESIDENTE',1,'EMPLEADO',2,5)
+---------- ---------- ---------------------------------------------------
+JIMENO     EMPLEADO                                                     2
+FERN?NDEZ  ANALISTA                                                     5
+MU?OZ      EMPLEADO                                                     2
+
+14 rows selected.
+
+SQL> SELECT apellido, oficio, decode(nvl(comision,0),0,' No Tiene comision' , '  Tiene comision') FROM emple;
+
+APELLIDO   OFICIO     DECODE(NVL(COMISIO
+---------- ---------- ------------------
+S?NCHEZ    EMPLEADO    No Tiene comision
+ARROYO     VENDEDOR     Tiene comision
+SALA       VENDEDOR     Tiene comision
+JIM?NEZ    DIRECTOR    No Tiene comision
+MART?N     VENDEDOR     Tiene comision
+NEGRO      DIRECTOR    No Tiene comision
+CEREZO     DIRECTOR    No Tiene comision
+GIL        ANALISTA    No Tiene comision
+REY        PRESIDENTE  No Tiene comision
+TOVAR      VENDEDOR    No Tiene comision
+ALONSO     EMPLEADO    No Tiene comision
+
+APELLIDO   OFICIO     DECODE(NVL(COMISIO
+---------- ---------- ------------------
+JIMENO     EMPLEADO    No Tiene comision
+FERN?NDEZ  ANALISTA    No Tiene comision
+MU?OZ      EMPLEADO    No Tiene comision
+
+SQL> SELECT apellido, vsize(apellido) FROM emple;
+
+APELLIDO   VSIZE(APELLIDO)
+---------- ---------------
+S?NCHEZ                  7
+ARROYO                   6
+SALA                     4
+JIM?NEZ                  7
+MART?N                   6
+NEGRO                    5
+CEREZO                   6
+GIL                      3
+REY                      3
+TOVAR                    5
+ALONSO                   6
+
+APELLIDO   VSIZE(APELLIDO)
+---------- ---------------
+JIMENO                   6
+FERN?NDEZ                9
+MU?OZ                    5
+
+SQL> select user from dual;// show user
+
+USER
+------------------------------
+TEMA5
+
+SQL> select user, uid from dual;
+
+USER                                  UID
+------------------------------ ----------
+TEMA5                                  59
+
+SQL> select apellido from emple order by apellido desc;
+
+APELLIDO
+----------
+TOVAR
+S?NCHEZ
+SALA
+REY
+NEGRO
+MU?OZ
+MART?N
+JIM?NEZ
+JIMENO
+GIL
+FERN?NDEZ
+
+APELLIDO
+----------
+CEREZO
+ARROYO
+ALONSO
+
+14 rows selected.
+
+SQL> select apellido from emple  where upper (oficio) like 'EMPLEADO'   order by empno, apellido desc;
+
+APELLIDO
+----------
+S?NCHEZ
+ALONSO
+JIMENO
+MU?OZ
+
+SQL> SELECT APELLIDO FROM EMPLE WHERE UPPER (APELLIDO)='MART?N';
+
+APELLIDO
+----------
+MART?N
+
+
+
+
+
