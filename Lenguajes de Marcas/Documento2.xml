@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE factuta SYSTEM "factura.dtd">
+
+<!ELEMENT  factura (numero, importe, empresa )>
+<!ELEMENT numero (#PCDATA)>
+<!ELEMENT importe (#PCDATA)>
+<!ELEMENT empresa (cif, nombreemp)>
