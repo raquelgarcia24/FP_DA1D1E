@@ -1,0 +1,46 @@
+CREATE TABLE EMPLEADOS (
+APELLIDO VARCHAR2(20),
+NOMBRE VARCHAR2(20) NOT NULL,
+DOMICILIO VARCHAR2(30));
+
+alter table empleados add FECHA_INGRESO date;
+
+describe empleados;
+
+alter table empleados add caracter varchar(12) not null;
+alter table empleados add sueldo number(10) default 0;
+
+ create table empleados2(
+  apellido varchar2(20) not null,
+  nombre varchar2(20),
+  domicilio varchar2(30),
+  seccion number(2),
+  fechaingreso date,
+  telefono number(7),
+  constraint emp_sec_fk  foreign key (seccion) references secciones (codigo) on delete set null);
+
+ alter table empleados2 modify telefono varchar2(11);
+
+ alter table empleados2 modify nombre varchar (10);
+ 
+ alter table empleados2 drop constraint  emp_sec_fk; /*no te deja cambiar el codigo a char(2) porque has definido una constraint 
+ on delete set null por lo tanto borramos la constraint*/
+
+ alter table secciones modify codigo char (2); /*ya se puede modificar*/
+
+ create table empleados3(
+  documento char(8) not null,
+  nombre varchar2(10),
+  domicilio varchar2(30),
+  ciudad varchar2(20) default 'Buenos Aires');
+
+ alter table empleados3 add (hijos number(2) constraint hijos check (hijos<30)); /* en "constraint hijos
+ se pone el nombre del constraint que puede ser cualquiera*/
+
+ alter table empleados3 add sueldo number (6,2) not null constraint min_sueldo check (sueldo>0);
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+
+<!ELEMENT ciudades (ciudad)*>
+
+<!ELEMENT ciudad (#PCDATA)>
+<ATTLIST ciudad pais CDATA #IMPLIED>

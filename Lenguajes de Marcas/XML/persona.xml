@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE persona[
+<!ELEMENT persona (nombre, apellido1)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT apellido1 (#PCDATA)>
+]>
+
+<persona>
+<nombre>Raquel</nombre>
+<apellido1>Garcia</apellido1>
+</persona>

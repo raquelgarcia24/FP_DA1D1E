@@ -1,0 +1,32 @@
+.imagenamostrar{
+	position:absolute;
+	visibility: hidden;
+}
+.elementos{ display:inline-block;
+	width: 32vw;
+	font-size: 40px;
+	text-align: center;
+
+}
+
+.imagenamostrar img{
+	width: 32vw;
+}
+.elementos a{
+	text-decoration: none;
+	display: block;
+	padding: 40px;
+	color: white;
+	background-color: grey;
+	border: solid;
+}
+.elementos:hover a{
+	transition-property: background-color;
+	transition-duration: 10s;
+	transition-timing-function: ease;
+	transition-delay: 1s;/* retraso antes de comenzar */
+	background-color: #731c90;
+}
+.elementos:hover .imagenesamostrar{
+	visibility: visible;
+}

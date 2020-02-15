@@ -1,0 +1,26 @@
+#contenedor{
+	width:60%;
+	margin: 0px auto; /*0px arriba y abajo auto los de los lados*/
+}
+
+p: first-child{
+	background-color: blue;
+	text-align: center;
+}
+
+#parrafo{
+	font-family: seoge print, arial black, verdana;
+	text-align: justify;
+}
+
+.contimagen{
+	position: relative;
+}
+.imagen {
+	position: absolute;
+	left:0px;
+	right: 0px;
+	top:0px;
+	margin:auto;
+	width: 500px;
+}

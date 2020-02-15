@@ -1,0 +1,7 @@
+desc dba_users;
+
+select username from dba_users;
+
+select username , created from dba_users;
+
+create user prueba identified by prueba;

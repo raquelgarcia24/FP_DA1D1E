@@ -1,0 +1,199 @@
+SQL> connect raquel
+Enter password:
+Connected.
+
+SQL> create user obiwan identified by kenobi
+  2  default tablespace system
+  3  quota 1M on system
+  4  password expire;
+
+SQL> grant create session to obiwan;
+
+Grant succeeded.
+
+SQL> grant create table to obiwan;
+
+Grant succeeded.
+
+SQL> connect raquel/raquel;
+Connected.
+
+SQL> alter user obiwan account lock;
+
+User altered.
+
+SQL> connect obiwan/kenobi;
+ERROR:
+ORA-28000: the account is locked
+
+
+Warning: You are no longer connected to ORACLE.
+
+SQL> connect raquel/raquel;
+Connected.
+SQL> create user popeye identified by espinacas
+  2  default tablespace users;
+
+User created.
+
+SQL> create user asterix identified by obelix
+  2  default tablespace users;
+
+User created.
+
+SQL> grant connect to popeye;
+
+Grant succeeded.
+
+SQL> grant resource to popeye;/*se podria hacer grant connect, resource to poepeye;*/
+
+Grant succeeded.
+
+SQL> grant all on emple to popeye with grant option;
+
+Grant succeeded.
+
+SQL> grant select on depart to popeye with grant option;
+
+Grant succeeded.
+
+SQL> INSERT INTO EMPLE VALUES (5649,'paula','VENDEDOR',7847,'20/02/2010', 1800,244,20);
+
+1 row created.
+
+SQL> select * from depart ;
+
+    DEPTNO DNOMBRE                   LOC
+---------- ------------------------- -------------------------
+        10 CONTABILIDAD              SEVILLA
+        20 INVESTIGACION             MADRID
+        30 VENTAS                    BARCELONA
+        40 PRODUCCION                BILBAO
+
+SQL> select * from emple;
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7369 SANCHEZ    EMPLEADO         7902 17/12/10        650
+        20
+
+      7499 ARROYO     VENDEDOR         7698 20/02/10       1300        234
+        30
+
+      7521 SALA       VENDEDOR         7698 22/02/11        980        392
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7566 JIMENEZ    DIRECTOR         7839 02/04/11       2400
+        20
+
+      7654 MARTIN     VENDEDOR         7698 29/09/11        980       1096
+        30
+
+      7698 NEGRO      DIRECTOR         7839 01/05/11       2240
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7782 CEREZO     DIRECTOR         7839 09/06/11       1920
+        10
+
+      7788 GIL        ANALISTA         7566 09/11/11       2350
+        20
+
+      7839 REY        PRESIDENTE            17/11/11       3950
+        10
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7844 TOVAR      VENDEDOR         7698 08/09/11       1190          0
+        30
+
+      7876 ALONSO     EMPLEADO         7788 23/09/11        862
+        20
+
+      7900 JIMENO     EMPLEADO         7698 03/12/11        750
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      7902 FERNANDEZ  ANALISTA         7566 03/12/11       2350
+        20
+
+      7934 MU?OZ      EMPLEADO         7782 23/01/12       1020
+        10
+
+      7879 raquelO    VENDEDOR         7998 20/02/10       1300        234
+        30
+
+
+     EMPNO APELLIDO   OFICIO            DIR FECHAALT    SALARIO   COMISION
+---------- ---------- ---------- ---------- -------- ---------- ----------
+    DEPTNO
+----------
+      5649 paula      VENDEDOR         7847 20/02/10       1800        244
+        20
+
+
+16 rows selected.
+
+SQL> select * from depart;
+
+    DEPTNO DNOMBRE                   LOC
+---------- ------------------------- -------------------------
+        10 CONTABILIDAD              SEVILLA
+        20 INVESTIGACION             MADRID
+        30 VENTAS                    BARCELONA
+        40 PRODUCCION                BILBAO
+
+
+SQL> connect raquel/raquel;
+Connected.
+SQL> revoke select on depart from popeye;
+
+Revoke succeeded.
+
+SQL> grant dba to asterix;
+
+Grant succeeded.
+
+SQL> create role rol_creador;
+
+Role created.
+
+SQL> grant connect, resource to rol_creador;
+
+Grant succeeded.
+
+SQL> grant rol_creador to usuario_rol;
+
+Grant succeeded.
+
+SQL> create user usuario_rol
+  2  identified by usuario_rol;
+
+User created.
+
+SQL> select * from user_role_privs;
+
+USERNAME                       GRANTED_ROLE                   ADM DEF OS_
+------------------------------ ------------------------------ --- --- ---
+RAQUEL                         DBA                            NO  YES NO
+RAQUEL                         ROL_CREADOR                    YES YES NO
+
+//no me deja seleccionar las tablas emple y depart desde popeye o asterix me dice que no existen
